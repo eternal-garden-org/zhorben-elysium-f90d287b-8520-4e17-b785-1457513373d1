@@ -1,4 +1,4 @@
-app = "${FLY_APP_NAME}"
+app = "zhorben-elysium-f90d287b-8520-4e17-b785-1457513373d1"
 
 [build]
 
@@ -11,6 +11,7 @@ min_machines_running = 0
 
 [env]
 NODE_ENV = 'production'
+DEPLOY_ID = '3ef46dbd-3333-460e-8383-f08c30c8cd27'
 
 [[vm]]
 memory = "512mb"

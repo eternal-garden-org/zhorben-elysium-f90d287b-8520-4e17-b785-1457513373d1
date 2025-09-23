@@ -1,53 +1,78 @@
+"use client";
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { ChevronDownIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MemorialBioProps {
   className?: string;
 }
 
+const bioData = [
+  {
+    id: "biography",
+    title: "Биография",
+    content:
+      "Александр Викторович Карпук родился в Бресте. С ранних лет он проявлял интерес к науке и искусству. После окончания школы Александр поступил в университет, где изучал инженерное дело. В своей карьере он достиг значительных успехов, работая над различными проектами в области технологий. В свободное время Александр увлекается фотографией и путешествиями, что позволяет ему открывать новые горизонты и вдохновляться окружающим миром.",
+  },
+  {
+    id: "hobbies",
+    title: "Увлечения",
+    content:
+      "Александр был человеком разносторонних интересов. Он увлекался фотографией и мог часами исследовать городские пейзажи в поисках идеального кадра. Любил путешествовать и открывать новые места, всегда возвращаясь домой с множеством историй. Его страстью была также музыка - он играл на гитаре и собрал внушительную коллекцию винила. В свободное время читал исторические романы и изучал архитектуру древних городов.",
+  },
+  {
+    id: "education",
+    title: "Образование",
+    content:
+      "Александр получил высшее техническое образование в Брестском государственном техническом университете по специальности инженерное дело. Во время учебы он показал себя как талантливый студент, активно участвующий в научных исследованиях и студенческих проектах. Позже он продолжил свое профессиональное развитие, посещая курсы повышения квалификации и семинары по современным технологиям. Его тяга к знаниям не ограничивалась только профессиональной сферой - он постоянно изучал что-то новое.",
+  },
+];
+
 export function MemorialBio({ className }: MemorialBioProps) {
   return (
     <div className={cn("w-full py-16", className)}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-3">
-          <h2 className="text-4xl font-medium">Семья</h2>
-          <p className="text-base text-muted-foreground">
-            FIRST_NAME прожил счастливую жизнь с женой Ольгой Сергеевной. Вместе
-            они воспитали двоих замечательных детей — Виктора и Елену. Виктор
-            пошёл по стопам отца, став инженером, а Елена выбрала медицину и
-            стала врачом. У FIRST_NAMEа было трое внуков, которых он обожал:
-            Максим, Полина и София. Он всегда говорил, что внуки — это главный
-            подарок жизни.
-          </p>
-        </div>
-
-        <div className="space-y-3">
-          <h2 className="text-4xl font-medium">Кем он был</h2>
-          <div className="text-base text-muted-foreground space-y-4">
-            <p>
-              По профессии FIRST_NAME был архитектором, и его работы до сих пор
-              украшают Брест. Главная площадь города, несколько школ, жилые
-              кварталы — всё это носит отпечаток его таланта. Он обожал своё
-              дело и часто говорил: "Архитектор не просто строит дома, он
-              создаёт места, где рождаются истории."
-            </p>
-            <p>
-              Но его жизнь — это не только чертежи и проекты. FIRST_NAME любил
-              проводить время с семьёй, играть в шахматы и читать исторические
-              романы. Его особенной страстью был сад — во дворе всегда цвели
-              розы, которые он ухаживал с особой любовью.
-            </p>
-          </div>
-        </div>
-
-        <div className="space-y-3">
-          <h2 className="text-4xl font-medium">Каким он был</h2>
-          <p className="text-base text-muted-foreground">
-            Его знали как человека с добрым сердцем и невероятной щедростью. Он
-            всегда находил время для друзей, был душой компании и мастером
-            анекдотов.
-          </p>
-        </div>
-      </div>
+      <Accordion
+        type="single"
+        collapsible
+        className="w-full space-y-5"
+        defaultValue="biography"
+      >
+        {bioData.map((item) => (
+          <AccordionItem
+            key={item.id}
+            value={item.id}
+            className={cn(
+              "border rounded-lg p-6 transition-all",
+              "data-[state=open]:border-white",
+              "data-[state=closed]:border-[#2D2D2D]",
+            )}
+          >
+            <AccordionTrigger className="hover:no-underline">
+              <span
+                className="text-white font-bold text-left"
+                style={{ fontSize: "20px" }}
+              >
+                {item.title}
+              </span>
+              <ChevronDownIcon
+                className="h-4 w-4 shrink-0 transition-transform duration-200"
+                style={{ color: "#F6B95A" }}
+              />
+            </AccordionTrigger>
+            <AccordionContent className="pt-4">
+              <p style={{ fontSize: "16px", color: "#8B8B8B" }}>
+                {item.content}
+              </p>
+            </AccordionContent>
+          </AccordionItem>
+        ))}
+      </Accordion>
     </div>
   );
 }

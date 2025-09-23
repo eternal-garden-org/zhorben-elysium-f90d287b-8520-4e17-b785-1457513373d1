@@ -5,28 +5,28 @@ import { useState } from "react";
 import { Play } from "lucide-react";
 import Image from "next/image";
 import { CustomAudioPlayer } from "@/components/custom-audio-player";
+import { Typography } from "@/components/ui/typography";
 
 interface MemorialMediaProps {
   className?: string;
 }
 
-// Данные для медиа
 const mediaData = {
   videos: [
     {
       id: "1",
-      youtubeId: "dQw4w9WgXcQ", // Рандомная ссылка на YouTube
+      youtubeId: "dQw4w9WgXcQ",
       thumbnailUrl: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
     },
     {
       id: "2",
-      youtubeId: "jNQXAC9IVRw", // Еще одна рандомная ссылка
-      thumbnailUrl: "https://img.youtube.com/vi/jNQXAC9IVRw/maxresdefault.jpg",
+      youtubeId: "dQw4w9WgXcQ",
+      thumbnailUrl: "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
     },
   ],
   audio: {
-    title: "Песня FIRST_NAME",
-    src: "https://examplefiles.org/files/audio/mp3-example-file-download-1min.mp3", // Внешняя ссылка на mp3-файл
+    title: "Песня Александра",
+    src: "https://examplefiles.org/files/audio/mp3-example-file-download-1min.mp3",
   },
 };
 
@@ -34,8 +34,12 @@ export function MemorialMedia({ className }: MemorialMediaProps) {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
 
   return (
-    <div className={cn("w-full py-12", className)}>
-      <h2 className="text-4xl font-medium mb-10">Медиафайлы</h2>
+    <div className={cn("w-full py-16", className)}>
+      <div className="text-center mb-12">
+        <Typography.H1 className="text-white text-[40px] font-normal">
+          Медиафайлы
+        </Typography.H1>
+      </div>
 
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
@@ -56,7 +60,10 @@ export function MemorialMedia({ className }: MemorialMediaProps) {
                 </div>
 
                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-black/30 transition-colors">
-                  <div className="size-16 rounded-full bg-primary/90 flex items-center justify-center text-primary-foreground">
+                  <div
+                    className="size-16 rounded-full flex items-center justify-center text-white"
+                    style={{ backgroundColor: "#F6B95A" }}
+                  >
                     <Play className="size-8 ml-1" />
                   </div>
                 </div>
@@ -65,17 +72,16 @@ export function MemorialMedia({ className }: MemorialMediaProps) {
           ))}
         </div>
 
-        <div className="p-6">
-          <h3 className="text-4xl font-medium mb-10">
+        <div className="text-center">
+          <Typography.H2 className="text-white text-[40px] font-normal mb-8">
             {mediaData.audio.title}
-          </h3>
-          <div>
+          </Typography.H2>
+          <div className="flex justify-center">
             <CustomAudioPlayer src={mediaData.audio.src} />
           </div>
         </div>
       </div>
 
-      {/* Модальное окно для видео */}
       {activeVideo && (
         <div
           className="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4"
@@ -83,7 +89,9 @@ export function MemorialMedia({ className }: MemorialMediaProps) {
         >
           <div className="max-w-4xl w-full aspect-video relative">
             <iframe
-              src={`https://www.youtube.com/embed/${mediaData.videos.find((v) => v.id === activeVideo)?.youtubeId}?autoplay=1`}
+              src={`https://www.youtube.com/embed/${
+                mediaData.videos.find((v) => v.id === activeVideo)?.youtubeId
+              }?autoplay=1`}
               className="w-full h-full rounded-lg"
               title="YouTube video player"
               frameBorder="0"
